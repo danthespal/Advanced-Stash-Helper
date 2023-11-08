@@ -1,17 +1,13 @@
 using NLog;
-using NLog.Config;
-using NLog.Targets;
-using NLog.Windows.Forms;
 
 namespace Advanced_Stash_Helper
 {
     public partial class MainForm : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
-
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private static LogForm? logForm;
-        private SettingsForm settingsForm;
-        private CalibrateAshForm calibrateAshForm;
+        private readonly SettingsForm settingsForm;
+        private readonly CalibrateAshForm calibrateAshForm;
         private bool settingsFormVisible;
         private bool logFormVisible;
 
@@ -88,8 +84,6 @@ namespace Advanced_Stash_Helper
                 settingsFormVisible = true;
                 settingsForm.Show();
                 PositionSettingsForm();
-
-                logger.Info("info log message");
             }
         }
 
