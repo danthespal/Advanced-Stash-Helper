@@ -1,3 +1,5 @@
+using NLog;
+
 namespace Advanced_Stash_Helper
 {
     internal static class Program
@@ -12,6 +14,9 @@ namespace Advanced_Stash_Helper
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new MainForm());
+
+            // Initialize NLog based on the configuration file
+            LogManager.Setup().LoadConfigurationFromFile("NLog.config");
         }
     }
 }

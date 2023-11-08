@@ -91,6 +91,7 @@
             Controls.Add(lbl_selected_currency);
             Name = "CalibrateAshForm";
             Text = "Calibration";
+            Load += CalibrateAshForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }

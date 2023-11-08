@@ -1,8 +1,15 @@
+using NLog;
+using NLog.Config;
+using NLog.Targets;
+using NLog.Windows.Forms;
+
 namespace Advanced_Stash_Helper
 {
     public partial class MainForm : Form
     {
-        private LogForm logForm;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
+        private static LogForm? logForm;
         private SettingsForm settingsForm;
         private CalibrateAshForm calibrateAshForm;
         private bool settingsFormVisible;
@@ -20,12 +27,13 @@ namespace Advanced_Stash_Helper
             settingsFormVisible = false;
 
             chk_logs.CheckedChanged += Chk_logs_CheckedChanged;
-
             LocationChanged += MainForm_LocationChanged;
         }
 
+        
+
         private void MainForm_Load(object sender, EventArgs e)
-        {
+        {            
             cb_sockets.SelectedIndex = 0;
             cb_links.SelectedIndex = 0;
             cb_R.SelectedIndex = 0;
@@ -55,10 +63,10 @@ namespace Advanced_Stash_Helper
             if (!logFormVisible)
             {
                 logFormVisible = true;
-                logForm.Show();
+                logForm?.Show();
                 PositionLogForm();
 
-                logForm.LogMessage("LogForm opened.");
+                InitLogger.Logger();
             }
         }
 
@@ -67,9 +75,9 @@ namespace Advanced_Stash_Helper
             if (logFormVisible)
             {
                 logFormVisible = false;
-                logForm.Hide();
+                logForm?.Hide();
 
-                logForm.ClearLogs();
+                logForm?.ClearLogs();
             }
         }
 
@@ -81,7 +89,7 @@ namespace Advanced_Stash_Helper
                 settingsForm.Show();
                 PositionSettingsForm();
 
-                logForm.LogMessage("SettingsForm opened.");
+                logger.Info("info log message");
             }
         }
 
@@ -91,8 +99,6 @@ namespace Advanced_Stash_Helper
             {
                 settingsFormVisible = false;
                 settingsForm.Hide();
-
-                logForm.LogMessage("SettingsForm closed.");
             }
         }
 

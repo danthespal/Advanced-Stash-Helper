@@ -1,7 +1,11 @@
-﻿namespace Advanced_Stash_Helper
+﻿using NLog;
+
+namespace Advanced_Stash_Helper
 {
     public partial class CalibrateAshForm : Form
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         private int squareXPos;
         private int squareYPos;
 
@@ -9,7 +13,6 @@
         private string? selectedCurrency;
 
         private readonly TransparentPanel transparentPanel;
-        private readonly LogForm logForm;
 
         private readonly string iniFilePath = "settings.ini";
 
@@ -28,8 +31,11 @@
                 Dock = DockStyle.Fill
             };
             Controls.Add(transparentPanel);
+        }
 
-            logForm = new LogForm();
+        private void CalibrateAshForm_Load(object sender, EventArgs e)
+        {
+            InitLogger.Logger();
         }
 
         public void SelectCurrency(string currName)
@@ -144,7 +150,7 @@
             catch (Exception ex)
             {
                 // Handle exceptions, e.g., log the error
-                logForm.LogMessage("Error saving label position: " + ex.Message);
+                logger.Error("An error occurred: {0}", ex.Message);
             }
         }
 
@@ -154,6 +160,7 @@
             {
                 SaveLabelPosition(selectedCurrency, selectedCurrencyPosition.X, selectedCurrencyPosition.Y);
                 Close();
+                logger.Info($"{selectedCurrency} position is saved; X: {selectedCurrencyPosition.X}, Y: {selectedCurrencyPosition.Y}");
             }
             else
             {

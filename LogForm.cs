@@ -1,4 +1,9 @@
-﻿namespace Advanced_Stash_Helper
+﻿using NLog;
+using NLog.Config;
+using NLog.Targets;
+using NLog.Windows.Forms;
+
+namespace Advanced_Stash_Helper
 {
     public partial class LogForm : Form
     {
@@ -14,20 +19,7 @@
             rtb_logs.Clear();
         }
 
-        public void LogMessage(string message)
-        {
-            if (rtb_logs.InvokeRequired)
-            {
-                rtb_logs.Invoke(new Action(() => LogMessage(message)));
-            }
-            else
-            {
-                rtb_logs.AppendText(message + Environment.NewLine);
-                rtb_logs.ScrollToCaret();
-            }
-        }
-
-        private void ClearButton_Click(object sender, EventArgs e)
+        private void ClearButton_Click(object? sender, EventArgs e)
         {
             ClearLogs();
         }
