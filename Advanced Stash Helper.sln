@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Advanced Stash Helper", "Advanced Stash Helper.csproj", "{FF496958-F103-4192-80A4-CDE3559302CD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FF496958-F103-4192-80A4-CDE3559302CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF496958-F103-4192-80A4-CDE3559302CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF496958-F103-4192-80A4-CDE3559302CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF496958-F103-4192-80A4-CDE3559302CD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {12C51995-CCE9-4EB3-B6E5-9163E60CEE7D}
+	EndGlobalSection
+EndGlobal
