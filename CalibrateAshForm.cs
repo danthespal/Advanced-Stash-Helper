@@ -6,6 +6,8 @@ namespace Advanced_Stash_Helper
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
+        private System.Windows.Forms.Timer timer;
+
         private int squareXPos;
         private int squareYPos;
 
@@ -20,12 +22,16 @@ namespace Advanced_Stash_Helper
         {
             InitializeComponent();
 
+            // initialize the timer
+            timer = new System.Windows.Forms.Timer();
+            timer.Interval = 200;
+            timer.Tick += Tmr_drawer_Tick;
+
             Load += FormCreate;
             Activated += FormActivate;
             Shown += FormShow;
 
             Opacity = 0.9;
-
             transparentPanel = new TransparentPanel
             {
                 Dock = DockStyle.Fill
@@ -35,7 +41,14 @@ namespace Advanced_Stash_Helper
 
         private void CalibrateAshForm_Load(object sender, EventArgs e)
         {
-            InitLogger.Logger();
+
+            if (Program.FormManager.OpenForms.Any(form => form is LogForm))
+            {
+                InitLogger.Logger();
+            }
+
+            // start the timer when the form is loaded
+            timer.Start();
         }
 
         public void SelectCurrency(string currName)
@@ -74,6 +87,13 @@ namespace Advanced_Stash_Helper
             DrawTab();
             Refresh();
         }
+
+        private void CalibrateAshForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // stop the timer when the form is closing
+            timer.Stop();
+        }
+
         private void DrawTab()
         {
 
@@ -138,6 +158,11 @@ namespace Advanced_Stash_Helper
                             }
                         }
                     }
+                }
+
+                if (!inLabelPositionsSection)
+                {
+                    lines.Add("[LabelPositions]");
                 }
 
                 if (!updatedExistingPosition)

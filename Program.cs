@@ -14,9 +14,22 @@ namespace Advanced_Stash_Helper
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new MainForm());
+        }
 
-            // Initialize NLog based on the configuration file
-            LogManager.Setup().LoadConfigurationFromFile("NLog.config");
+        // keep track of the opened forms
+        public static class FormManager
+        {
+            public static List<Form> OpenForms { get; } = new List<Form>();
+
+            public static void AddForm(Form form) 
+            {
+                OpenForms.Add(form);
+            }
+
+            public static void RemoveForm(Form form) 
+            {
+                OpenForms.Remove(form);
+            }
         }
     }
 }

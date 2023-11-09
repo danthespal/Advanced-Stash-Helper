@@ -4,12 +4,10 @@ namespace Advanced_Stash_Helper
 {
     public partial class MainForm : Form
     {
-        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-        private static LogForm? logForm;
-        private readonly SettingsForm settingsForm;
-        private readonly CalibrateAshForm calibrateAshForm;
-        private bool settingsFormVisible;
-        private bool logFormVisible;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static LogForm logForm;
+        private static SettingsForm settingsForm;
+        private static CalibrateAshForm calibrateAshForm;
 
         public MainForm()
         {
@@ -19,17 +17,14 @@ namespace Advanced_Stash_Helper
             calibrateAshForm = new CalibrateAshForm();
             settingsForm = new SettingsForm(calibrateAshForm);
 
-            logFormVisible = false;
-            settingsFormVisible = false;
-
             chk_logs.CheckedChanged += Chk_logs_CheckedChanged;
             LocationChanged += MainForm_LocationChanged;
         }
 
-        
+
 
         private void MainForm_Load(object sender, EventArgs e)
-        {            
+        {
             cb_sockets.SelectedIndex = 0;
             cb_links.SelectedIndex = 0;
             cb_R.SelectedIndex = 0;
@@ -56,9 +51,9 @@ namespace Advanced_Stash_Helper
 
         private void ShowLogForm()
         {
-            if (!logFormVisible)
+            if (!Program.FormManager.OpenForms.Contains(logForm))
             {
-                logFormVisible = true;
+                Program.FormManager.OpenForms.Add(logForm);
                 logForm?.Show();
                 PositionLogForm();
 
@@ -68,31 +63,30 @@ namespace Advanced_Stash_Helper
 
         private void HideLogForm()
         {
-            if (logFormVisible)
+            if (Program.FormManager.OpenForms.Contains(logForm))
             {
-                logFormVisible = false;
+                Program.FormManager.RemoveForm(logForm);
                 logForm?.Hide();
-
                 logForm?.ClearLogs();
             }
         }
 
         private void ShowSettingsForm()
         {
-            if (!settingsFormVisible)
+            if (!Program.FormManager.OpenForms.Contains(settingsForm))
             {
-                settingsFormVisible = true;
-                settingsForm.Show();
+                Program.FormManager.AddForm(settingsForm);
+                settingsForm?.Show();
                 PositionSettingsForm();
             }
         }
 
         private void HideSettingsForm()
         {
-            if (settingsFormVisible)
+            if (Program.FormManager.OpenForms.Contains(settingsForm))
             {
-                settingsFormVisible = false;
-                settingsForm.Hide();
+                Program.FormManager.RemoveForm(settingsForm);
+                settingsForm?.Hide();
             }
         }
 
@@ -108,12 +102,12 @@ namespace Advanced_Stash_Helper
 
         private void MainForm_LocationChanged(object? sender, EventArgs e)
         {
-            if (logFormVisible)
+            if (Program.FormManager.OpenForms.Contains(logForm))
             {
                 PositionLogForm();
             }
-
-            if (settingsFormVisible)
+            
+            if (Program.FormManager.OpenForms.Contains(settingsForm))
             {
                 PositionSettingsForm();
             }
@@ -121,7 +115,7 @@ namespace Advanced_Stash_Helper
 
         private void btn_settings_Click(object sender, EventArgs e)
         {
-            if (!settingsFormVisible)
+            if (!Program.FormManager.OpenForms.Contains(settingsForm))
             {
                 ShowSettingsForm();
             }

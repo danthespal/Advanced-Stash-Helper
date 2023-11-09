@@ -281,7 +281,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ActiveBorder;
+            BackColor = SystemColors.Control;
             ClientSize = new Size(311, 457);
             Controls.Add(edt_limit);
             Controls.Add(chk_logs);

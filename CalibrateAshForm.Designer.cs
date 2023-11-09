@@ -75,7 +75,6 @@
             // 
             // Tmr_drawer
             // 
-            Tmr_drawer.Enabled = true;
             Tmr_drawer.Interval = 200;
             Tmr_drawer.Tick += Tmr_drawer_Tick;
             // 
@@ -91,6 +90,7 @@
             Controls.Add(lbl_selected_currency);
             Name = "CalibrateAshForm";
             Text = "Calibration";
+            FormClosing += CalibrateAshForm_FormClosing;
             Load += CalibrateAshForm_Load;
             ResumeLayout(false);
             PerformLayout();
