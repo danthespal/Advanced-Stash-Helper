@@ -1,35 +1,40 @@
-﻿using NLog;
+﻿using Advanced_Stash_Helper.Modules;
+using NLog;
 
 namespace Advanced_Stash_Helper
 {
     public partial class CalibrateAshForm : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-        private System.Windows.Forms.Timer timer;
+        private readonly System.Windows.Forms.Timer timer;
 
         private int squareXPos;
         private int squareYPos;
 
-        private Point selectedCurrencyPosition;
-        private string? selectedCurrency;
+        private static Point selectedCurrencyPosition;
+        private static string? selectedCurrency;
 
         private readonly TransparentPanel transparentPanel;
 
-        private readonly string iniFilePath = "settings.ini";
+        private static readonly string iniFilePath = Config.IniFilePath;
 
         public CalibrateAshForm()
         {
             InitializeComponent();
 
             // initialize the timer
-            timer = new System.Windows.Forms.Timer();
-            timer.Interval = 200;
+            timer = new System.Windows.Forms.Timer
+            {
+                Interval = 200
+            };
             timer.Tick += Tmr_drawer_Tick;
 
             Load += FormCreate;
             Activated += FormActivate;
             Shown += FormShow;
+
+            btn_confirm.Click += Btn_confirm_Click;
 
             Opacity = 0.9;
             transparentPanel = new TransparentPanel
@@ -42,7 +47,7 @@ namespace Advanced_Stash_Helper
         private void CalibrateAshForm_Load(object sender, EventArgs e)
         {
 
-            if (Program.FormManager.OpenForms.Any(form => form is LogForm))
+            if (FormManager.OpenForms.Any(form => form is LogForm))
             {
                 InitLogger.Logger();
             }
@@ -55,18 +60,12 @@ namespace Advanced_Stash_Helper
         {
             selectedCurrency = currName;
 
-            switch (currName)
+            lbl_selected_currency.Text = currName switch
             {
-                case "tra":
-                    lbl_selected_currency.Text = "Orb of Transmutation";
-                    break;
-                case "alt":
-                    lbl_selected_currency.Text = "Orb of Alteration";
-                    break;
-                default:
-                    lbl_selected_currency.Text = "Unknown Currency";
-                    break;
-            }
+                "OrbOfTransmutation" => "Orb of Transmutation",
+                "OrbOfAlteration" => "Orb of Alteration",
+                _ => "Unknown Currency",
+            };
         }
 
         private void FormCreate(object? sender, EventArgs e)
@@ -123,7 +122,7 @@ namespace Advanced_Stash_Helper
             DrawTab();
         }
 
-        private void SaveLabelPosition(string selectedLabel, int x, int y)
+        private static void SaveLabelPosition(string selectedLabel, int x, int y)
         {
             try
             {
@@ -179,7 +178,7 @@ namespace Advanced_Stash_Helper
             }
         }
 
-        private void btn_confirm_Click(object sender, EventArgs e)
+        private void Btn_confirm_Click(object? sender, EventArgs e)
         {
             if (selectedCurrency != null)
             {

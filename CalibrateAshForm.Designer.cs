@@ -71,7 +71,6 @@
             btn_confirm.TabIndex = 3;
             btn_confirm.Text = "Confirm";
             btn_confirm.UseVisualStyleBackColor = true;
-            btn_confirm.Click += btn_confirm_Click;
             // 
             // Tmr_drawer
             // 

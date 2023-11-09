@@ -1,9 +1,4 @@
-﻿using NLog;
-using NLog.Config;
-using NLog.Targets;
-using NLog.Windows.Forms;
-
-namespace Advanced_Stash_Helper
+﻿namespace Advanced_Stash_Helper
 {
     public partial class LogForm : Form
     {

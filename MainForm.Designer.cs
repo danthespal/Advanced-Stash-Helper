@@ -63,7 +63,6 @@
             btn_minimize.TabIndex = 0;
             btn_minimize.Text = "Minimize";
             btn_minimize.UseVisualStyleBackColor = true;
-            btn_minimize.Click += btn_minimize_Click;
             // 
             // btn_hotkeys
             // 
@@ -82,7 +81,6 @@
             btn_settings.TabIndex = 3;
             btn_settings.Text = "Settings";
             btn_settings.UseVisualStyleBackColor = true;
-            btn_settings.Click += btn_settings_Click;
             // 
             // tabControl1
             // 

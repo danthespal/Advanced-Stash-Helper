@@ -1,5 +1,3 @@
-using NLog;
-
 namespace Advanced_Stash_Helper
 {
     internal static class Program
@@ -14,22 +12,6 @@ namespace Advanced_Stash_Helper
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new MainForm());
-        }
-
-        // keep track of the opened forms
-        public static class FormManager
-        {
-            public static List<Form> OpenForms { get; } = new List<Form>();
-
-            public static void AddForm(Form form) 
-            {
-                OpenForms.Add(form);
-            }
-
-            public static void RemoveForm(Form form) 
-            {
-                OpenForms.Remove(form);
-            }
         }
     }
 }

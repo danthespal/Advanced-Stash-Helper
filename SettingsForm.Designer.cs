@@ -446,7 +446,6 @@
             lbl_cal_alt.Size = new Size(99, 15);
             lbl_cal_alt.TabIndex = 5;
             lbl_cal_alt.Text = "Orb of Alteration:";
-            lbl_cal_alt.Click += lbl_cal_alt_Click;
             // 
             // lbl_cal_tra_y
             // 
@@ -474,7 +473,6 @@
             lbl_cal_tra.Size = new Size(123, 15);
             lbl_cal_tra.TabIndex = 2;
             lbl_cal_tra.Text = "Orb of Transmutation:";
-            lbl_cal_tra.Click += lbl_cal_tra_Click;
             // 
             // lbl_cal_x
             // 
