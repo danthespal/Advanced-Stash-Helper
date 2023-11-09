@@ -29,7 +29,10 @@ namespace Advanced_Stash_Helper
                 Interval = 5000 // Adjust the interval as needed (in milliseconds)
             };
             configFileCheckTimer.Tick += ConfigFileCheckTimer_Tick;
-            configFileCheckTimer.Start();
+
+            // Subscribe to the Form events
+            this.Shown += SettingsForm_Shown;
+            this.FormClosing += SettingsForm_FormClosing;
         }
 
         // Load label positions for various currencies
@@ -173,6 +176,20 @@ namespace Advanced_Stash_Helper
             }
 
             return false;
+        }
+
+        // Start the timer and add the form to FormManager when the form is shown
+        private void SettingsForm_Shown(object? sender, EventArgs e)
+        {
+            FormManager.AddForm(this);
+            configFileCheckTimer.Start();
+        }
+
+        // Stop the timer and remove the form from FormManager when the form is closing
+        private void SettingsForm_FormClosing(object? sender, FormClosingEventArgs e)
+        {
+            FormManager.RemoveForm(this);
+            configFileCheckTimer.Stop();
         }
     }
 }
